@@ -3,14 +3,15 @@ import axios from "axios";
 import ClientList from "../components/ClientList";
 import ClientForm from "../components/ClientForm";
 import { Typography, Box } from "@mui/material";
+import { Client } from "../models/types";
 
-const ClientsPage = () => {
-  const [clients, setClients] = useState([]);
-  const [clientToEdit, setClientToEdit] = useState([]);
+const ClientsPage: React.FC = () => {
+  const [clients, setClients] = useState<Client[]>([]);
+  const [clientToEdit, setClientToEdit] = useState<Client | null>(null);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5100/api/clients")
+      .get<Client[]>("http://localhost:5010/api/clients")
       .then((response) => setClients(response.data))
       .catch((error) => console.error(error));
   }, []);

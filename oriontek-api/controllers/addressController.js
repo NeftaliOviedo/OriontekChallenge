@@ -13,7 +13,8 @@ exports.createAddress = async (req, res) => {
   try {
     const address = new Address({ ...req.body, client: req.params.clientId });
     await address.save();
-    res.status(201).json(address);
+    const addresses = await Address.find({ client: req.params.clientId });
+    res.status(200).json(addresses);
   } catch (error) {
     res.status(400).json({ message: 'Error creating address', error });
   }
